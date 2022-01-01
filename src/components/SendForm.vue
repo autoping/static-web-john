@@ -1,5 +1,4 @@
 <template>
-  {{msg}}
   <main class="container-fluid overflow-scroll">
     <div class="card" v-for="message in messages" v-bind:key="message">
       <div class="card-body" >
