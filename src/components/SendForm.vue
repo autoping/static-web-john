@@ -18,7 +18,7 @@
           <input type="text" v-model="message" v-on:keyup.enter="sendMessage()" class="form-control" id="message" placeholder="Type here a message">
         </div>
         <div class="col-1">
-          <button type="button" v-on:click="sendMessage" class="btn btn-primary">send</button>
+          <button type="button" v-on:click="sendMessage" class="btn btn-primary">Send</button>
         </div>
       </div>
     </div>
