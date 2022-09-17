@@ -41,24 +41,38 @@ export default {
   data() {
     return {
       baseUrl: "https://tp9tgtwi6b.execute-api.eu-central-1.amazonaws.com/dev/messages",
+      cardId: "",
       visitorId: "",
       message: "",
       messages: []
     }
   },
   created() {
-    console.log("started");
+    // console.log("started");
+    let uri = window.location.href.split('?');
+
+    if (uri.length == 2) {
+      let vars = uri[1].split('&');
+      let getVars = {};
+      let tmp = '';
+      vars.forEach(function (v) {
+        tmp = v.split('=');
+        if (tmp.length == 2)
+          getVars[tmp[0]] = tmp[1];
+      });
+      this.cardId = getVars['cardId'];
+    }
 
     fp.load()
         .then(r => r.get())
         .then(result => {
           this.visitorId = result.visitorId;
-          console.log(result.visitorId)
+          // console.log(result.visitorId)
         }).then(() => {
       axios
-          .get(this.baseUrl+'?initiatorId=' + this.visitorId + '&cardId=XmD8zN5KjiSVBDS3O24Rw1B65C8dtbDy')
+          .get(this.baseUrl + '?initiatorId=' + this.visitorId + '&cardId=' + this.cardId)
           .then(response => {
-            console.log(response);
+            // console.log(response);
             this.messages = response.data.items || [];
           });
     });
@@ -74,7 +88,7 @@ export default {
                 {
                   text: this.message,
                   initiatorId: this.visitorId,
-                  cardId: 'XmD8zN5KjiSVBDS3O24Rw1B65C8dtbDy'
+                  cardId: this.cardId
                 });
         this.message = '';
       }
